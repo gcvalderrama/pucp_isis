@@ -1,0 +1,58 @@
+https://www.kaggle.com/solutions/competitions
+https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/forums/t/7693/deep-learning
+http://www.socher.org/
+http://nlp.stanford.edu/~socherr/EMNLP2013_SemComp_SuppMat.pdf
+http://nlp.stanford.edu/courses/NAACL2013/
+http://www.cs.cornell.edu/People/pabo/movie-review-data/
+http://rahular.com/twitter-sentiment-analysis/
+http://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf
+http://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/sentiment/SentimentTraining.html
+http://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/sentiment/SentimentPipeline.html
+http://stackoverflow.com/questions/24723984/how-to-get-phrase-level-sentiment-from-standford-core-nlp-package
+http://stackoverflow.com/questions/24723984/how-to-get-phrase-level-sentiment-from-standford-core-nlp-package
+http://breakthroughanalysis.com/2012/01/08/what-are-the-most-powerful-open-source-sentiment-analysis-tools/
+
+:java -cp stanford-corenlp-3.5.2.jar;stanford-corenlp-3.5.2-models.jar;xom.jar:javax.json.jar;joda-time.jar;jollyday.jar;protobuf.jar  -Xmx2g edu.stanford.nlp.pipeline.StanfordCoreNLP -annotators tokenize -file input.txt -outputDirectory salida
+
+
+:java -cp "*" -Xmx2g edu.stanford.nlp.pipeline.StanfordCoreNLP -annotators tokenize,ssplit,pos,lemma,ner,parse,dcoref -file input.txt -outputDirectory salida
+
+:java -cp "*" -Xmx2g edu.stanford.nlp.pipeline.StanfordCoreNLP -annotators tokenize,ssplit,pos,lemma,ner,parse,dcoref -file input.txt -outputDirectory salida
+
+:java -cp "*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -stdin
+
+java -cp "*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -sentimentModel model-dev-0006-76.55.ser.gz -file input.txt >> salida.txt
+
+:java edu.stanford.nlp.sentiment.Evaluate edu/stanford/nlp/models/sentiment/sentiment.ser.gz test.txt
+
+:java -mx8g edu.stanford.nlp.sentiment.SentimentTraining
+
+:java -cp "*" edu.stanford.nlp.sentiment.Evaluate -model edu/stanford/nlp/models/sentiment/sentiment.ser.gz -treebank test.txt
+
+:java -cp "*" -mx8g edu.stanford.nlp.sentiment.SentimentTraining -numHid 25 -trainPath manual.txt -devPath dev.txt -train -model model-dev.ser.gz
+
+
+:java -cp "*" edu.stanford.nlp.sentiment.Evaluate -model model-dev-0005-80.19.ser.gz -treebank test.txt
+
+
+:http://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/sentiment/Evaluate.html
+
+:java -cp "*" edu.stanford.nlp.sentiment.BuildBinarizedDataset -input sent_train.txt > train.txt
+
+:1 original_rt_snippets.txt contains 10,605 processed snippets from the original pool of Rotten Tomatoes HTML files. Please note that some snippet may contain multiple sentences.
+:2. dictionary.txt contains all phrases and their IDs, separated by a vertical line |
+:3. sentiment_labels.txt contains all phrase ids and the corresponding sentiment labels, separated by a vertical line. Note that you can recover the 5 classes by mapping the positivity probability using the following cut-offs: [0, 0.2], (0.2, 0.4], (0.4, 0.6], (0.6, 0.8], (0.8, 1.0] for very negative, negative, neutral, positive, very positive, respectively. Please note that phrase ids and sentence ids are not the same.
+
+:4. SOStr.txt and STree.txt encode the structure of the parse trees.  STree encodes the trees in a parent pointer format. Each line corresponds to each sentence in the datasetSentences.txt file. The Matlab code of this paper will show you how to read this format if you are not familiar with it.
+
+:5. datasetSentences.txt contains the sentence index, followed by the sentence string separated by a tab. These are the sentences of the train/dev/test sets
+:6. datasetSplit.txt contains the sentence index (corresponding to the index in datasetSentences.txt file) followed by the set label separated by a comma:	1 = train	2 = test	3 = dev
+
+:Please note that the datasetSentences.txt file has more sentences/lines than the original_rt_snippet.txt. Each row in the latter represents a snippet as shown on RT, whereas the former is each sub sentence as determined by the Stanford parser.For comparing research and training models, please use the provided train/dev/test splits.
+
+
+:phrase level sentiment
+:http://stackoverflow.com/questions/24723984/how-to-get-phrase-level-sentiment-from-standford-core-nlp-package
+:java -cp stanford-corenlp-3.4.jar:stanford-corenlp-3.4-models.jar:xom.jar:joda-time.jar:jollyday.jar:ejml-0.23.jar -mx2g edu.stanford.nlp.sentiment.SentimentPipeline -stdin < input.txt
+
+:java -cp stanford-corenlp-3.4.jar:stanford-corenlp-3.4-models.jar:xom.jar:joda-time.jar:jollyday.jar:ejml-0.23.jar -mx2g edu.stanford.nlp.sentiment.SentimentPipeline -stdin -output PENNTREES < input.txt
