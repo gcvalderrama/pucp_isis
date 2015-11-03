@@ -16,12 +16,18 @@ import java.util.Properties;
  */
 public class SentimentAnalyzer {
 
-    public int findSentiment(String line) {
-
+    private String model;
+    private StanfordCoreNLP pipeline;
+    public SentimentAnalyzer(String model)
+    {
+        this.model = model;
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-        props.setProperty("sentiment.model", "model-dev-0006-76.55.ser.gz");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        props.setProperty("sentiment.model", this.model);
+        this.pipeline = new StanfordCoreNLP(props);
+    }
+
+    public int findSentiment(String line) {
         int mainSentiment = 0;
         if (line != null && line.length() > 0) {
             int longest = 0;

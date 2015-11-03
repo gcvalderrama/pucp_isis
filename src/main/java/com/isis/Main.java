@@ -19,14 +19,19 @@ public class Main {
         /*Migrate database*/
         //Migrate();
 
-        SentimentAnalyzer s = new SentimentAnalyzer();
+        //SentimentAnalyzer s = new SentimentAnalyzer();
 
-        int sentiment = s.findSentiment("awesome");
+        //int sentiment = s.findSentiment("awesome");
 
-        System.out.println(sentiment);
+        //System.out.println(sentiment);
 //        GenerateTreeRepresentation();
 
-
+        TestSentimentController controller =  new TestSentimentController("test.tsv", "test_salida.tsv", "model-dev-0006-76.55.ser.gz");
+        try {
+            controller.Process();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("print ok");
 	// write your code here
     }
