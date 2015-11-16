@@ -17,7 +17,7 @@ public class Main {
 
 
         /*Migrate database*/
-        //Migrate();
+//        Migrate();
 
         //SentimentAnalyzer s = new SentimentAnalyzer();
 
@@ -26,12 +26,17 @@ public class Main {
         //System.out.println(sentiment);
 //        GenerateTreeRepresentation();
 
-        TestSentimentController controller =  new TestSentimentController("test.tsv", "test_salida.tsv", "model-dev-0006-76.55.ser.gz");
-        try {
-            controller.Process();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        KagglerController controller = new KagglerController();
+        controller.MigrateToTree();
+        //controller.Migrate();
+//        controller.MigrateToTree();
+        //TestSentimentController controller =  new TestSentimentController("test.tsv", "test_salida.tsv", "model-dev-0006-76.55.ser.gz");
+        //try {
+          ///  controller.Process();
+
+        //} catch (IOException e) {
+          //  e.printStackTrace();
+        //}
         System.out.println("print ok");
 	// write your code here
     }
@@ -54,10 +59,7 @@ public class Main {
         }
     }
 
-
-
-
-
+    ///
     public static void Migrate()
     {
         System.out.print("Processing. This will take about 30 mins or os...");

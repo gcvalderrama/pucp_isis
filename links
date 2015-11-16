@@ -29,7 +29,7 @@ java -cp "*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -sentimentModel 
 
 :java -cp "*" edu.stanford.nlp.sentiment.Evaluate -model edu/stanford/nlp/models/sentiment/sentiment.ser.gz -treebank test.txt
 
-:java -cp "*" -mx8g edu.stanford.nlp.sentiment.SentimentTraining -numHid 25 -trainPath manual.txt -devPath dev.txt -train -model model-dev.ser.gz
+:java -cp "*" -mx8g edu.stanford.nlp.sentiment.SentimentTraining -numHid 25 -trainPath output2.txt -devPath dev.txt -train -model kaggler-dev.ser.gz
 
 
 :java -cp "*" edu.stanford.nlp.sentiment.Evaluate -model model-dev-0005-80.19.ser.gz -treebank test.txt
@@ -56,3 +56,8 @@ java -cp "*" -mx5g edu.stanford.nlp.sentiment.SentimentPipeline -sentimentModel 
 :java -cp stanford-corenlp-3.4.jar:stanford-corenlp-3.4-models.jar:xom.jar:joda-time.jar:jollyday.jar:ejml-0.23.jar -mx2g edu.stanford.nlp.sentiment.SentimentPipeline -stdin < input.txt
 
 :java -cp stanford-corenlp-3.4.jar:stanford-corenlp-3.4-models.jar:xom.jar:joda-time.jar:jollyday.jar:ejml-0.23.jar -mx2g edu.stanford.nlp.sentiment.SentimentPipeline -stdin -output PENNTREES < input.txt
+
+
+: rertain the model
+:http://stackoverflow.com/questions/22586658/how-to-train-the-stanford-nlp-sentiment-analysis-tool?rq=1
+:https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/forums/t/12304/stanford-nlp-training-is-not-converging/64298
